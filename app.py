@@ -5,18 +5,21 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-# app.config["MONGO_DBNAME"] = 'task_manager'  #this is optional for the version we're using
-app.config["MONGO_URI"]  = 'mongodb+srv://lima:Chiquinho09@myfirstcluster-3jbxl.mongodb.net/task_manager?retryWrites=true'
+
+app.config["MONGO_DBNAME"] = 'task_manager'
+app.config["MONGO_URI"] = "mongodb+srv://lima:Chiquinho09@myfirstcluster-3jbxl.mongodb.net/task_manager?retryWrites=true"
 
 mongo = PyMongo(app)
 
 
 @app.route('/')
 @app.route('/get_tasks')
-
-
 def get_tasks():
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
+
+@app.route('/add_task')
+def add_task():
+    return render_template('addtask.html')
 
 
 if __name__ == '__main__':
